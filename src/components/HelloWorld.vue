@@ -7,35 +7,57 @@ const count = ref(0)
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <v-card class="pa-4">
+    <v-card-title class="text-h4 mb-4">
+      {{ msg }}
+    </v-card-title>
 
-  <div class="card">
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p>
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
-  </div>
+    <v-card-text>
+      <v-btn 
+        color="primary" 
+        @click="count++"
+        class="mb-4"
+      >
+        Count is {{ count }}
+      </v-btn>
+      
+      <v-alert 
+        type="info" 
+        variant="tonal"
+        class="mb-4"
+      >
+        Edit <code>components/HelloWorld.vue</code> to test HMR
+      </v-alert>
 
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Learn more about IDE Support for Vue in the
-    <a
-      href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support"
-      target="_blank"
-      >Vue Docs Scaling up Guide</a
-    >.
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
+      <v-list>
+        <v-list-item>
+          <template v-slot:prepend>
+            <v-icon>mdi-link</v-icon>
+          </template>
+          <v-list-item-title>
+            <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank">
+              create-vue
+            </a>
+            , the official Vue + Vite starter
+          </v-list-item-title>
+        </v-list-item>
+        
+        <v-list-item>
+          <template v-slot:prepend>
+            <v-icon>mdi-ide-support</v-icon>
+          </template>
+          <v-list-item-title>
+            Learn more about IDE Support for Vue in the
+            <a href="https://vuejs.org/guide/scaling-up/tooling.html#ide-support" target="_blank">
+              Vue Docs Scaling up Guide
+            </a>
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-card-text>
+  </v-card>
 </template>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
-}
+/* Custom styles can be added here */
 </style>
