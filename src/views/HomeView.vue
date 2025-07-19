@@ -1,144 +1,176 @@
 <script setup lang="ts">
 import MainLayout from '../components/MainLayout.vue'
 import { useAuthStore } from '../stores/auth'
+import { useRouter } from 'vue-router'
+import logo from '../assets/logo.png'
 
 const authStore = useAuthStore()
+const router = useRouter()
+
+const navigateToRacers = () => {
+  router.push('/racer-profiles')
+}
+
+const navigateToEvents = () => {
+  router.push('/events')
+}
 </script>
 
 <template>
   <MainLayout>
-    <v-row>
+    <!-- Hero Section with Logo -->
+    <v-row class="hero-section">
+      <v-col cols="12" class="text-center">
+        <div class="logo-container mb-6">
+          <img :src="logo" alt="Run Bike Manager Logo" class="hero-logo" />
+        </div>
+        
+        <h1 class="text-h3 font-weight-bold mb-4">
+          Welcome to Run Bike Manager
+        </h1>
+        
+        <p class="text-h6 text-medium-emphasis mb-8 max-width-600">
+          The ultimate platform for managing your racers and creating exciting events. 
+          Build your racing community and compete with fellow enthusiasts.
+        </p>
+      </v-col>
+    </v-row>
+
+    <!-- App Description Section -->
+    <v-row class="mt-8">
       <v-col cols="12">
-        <v-card>
-          <v-card-title class="text-h4">
-            Welcome back, {{ authStore.user?.name }}!
+        <v-card class="description-card">
+          <v-card-title class="text-h4 text-center mb-6">
+            What You Can Do
           </v-card-title>
-          <v-card-text>
-            <p class="text-body-1">
-              Manage your running and biking activities with ease.
-            </p>
-          </v-card-text>
+          
+          <v-row>
+            <v-col cols="12" md="6" class="mb-6">
+              <div class="feature-section">
+                <div class="feature-icon mb-4">
+                  <v-icon size="64" color="primary">mdi-account-group</v-icon>
+                </div>
+                <h3 class="text-h5 font-weight-bold mb-3">Manage Your Racers</h3>
+                <p class="text-body-1 text-medium-emphasis">
+                  Create and manage detailed profiles for all your racers. Track personal information, 
+                  contact details, and racing history. Keep everything organized in one place.
+                </p>
+                <ul class="feature-list mt-4">
+                  <li>• Complete racer profiles with personal details</li>
+                  <li>• Contact information and address management</li>
+                  <li>• Age and birthday tracking</li>
+                  <li>• Easy profile editing and updates</li>
+                </ul>
+              </div>
+            </v-col>
+            
+            <v-col cols="12" md="6" class="mb-6">
+              <div class="feature-section">
+                <div class="feature-icon mb-4">
+                  <v-icon size="64" color="success">mdi-calendar-plus</v-icon>
+                </div>
+                <h3 class="text-h5 font-weight-bold mb-3">Create & Join Events</h3>
+                <p class="text-body-1 text-medium-emphasis">
+                  Host your own racing events or join events created by other users. 
+                  Configure event settings, invite participants, and build your racing community.
+                </p>
+                <ul class="feature-list mt-4">
+                  <li>• Create customizable racing events</li>
+                  <li>• Set event rules and configurations</li>
+                  <li>• Invite racers to join your events</li>
+                  <li>• Join events hosted by other users</li>
+                </ul>
+              </div>
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>
 
-    <v-row class="mt-4">
-      <v-col cols="12" md="4">
-        <v-card color="primary" dark>
-          <v-card-title>
-            <v-icon start>mdi-run</v-icon>
-            Running Activities
+    <!-- Quick Actions Section -->
+    <v-row class="mt-8">
+      <v-col cols="12">
+        <v-card class="actions-card">
+          <v-card-title class="text-h4 text-center mb-6">
+            Get Started
           </v-card-title>
-          <v-card-text>
-            <div class="text-h4">12</div>
-            <div class="text-body-2">This month</div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" md="4">
-        <v-card color="success" dark>
-          <v-card-title>
-            <v-icon start>mdi-bike</v-icon>
-            Biking Activities
-          </v-card-title>
-          <v-card-text>
-            <div class="text-h4">8</div>
-            <div class="text-body-2">This month</div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-
-      <v-col cols="12" md="4">
-        <v-card color="info" dark>
-          <v-card-title>
-            <v-icon start>mdi-map-marker-distance</v-icon>
-            Total Distance
-          </v-card-title>
-          <v-card-text>
-            <div class="text-h4">156 km</div>
-            <div class="text-body-2">This month</div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row class="mt-4">
-      <v-col cols="12" md="6">
-        <v-card>
-          <v-card-title>Recent Activities</v-card-title>
-          <v-card-text>
-            <v-list>
-              <v-list-item
-                v-for="(activity, index) in [
-                  { type: 'Running', distance: '5.2 km', time: '25 min', date: 'Today' },
-                  { type: 'Biking', distance: '15.8 km', time: '45 min', date: 'Yesterday' },
-                  { type: 'Running', distance: '3.1 km', time: '18 min', date: '2 days ago' }
-                ]"
-                :key="index"
+          
+          <v-row>
+            <v-col cols="12" md="6" class="text-center mb-4">
+              <v-btn
+                @click="navigateToRacers"
+                color="primary"
+                size="x-large"
+                prepend-icon="mdi-account-plus"
+                class="action-btn"
               >
-                <template v-slot:prepend>
-                  <v-icon :color="activity.type === 'Running' ? 'primary' : 'success'">
-                    {{ activity.type === 'Running' ? 'mdi-run' : 'mdi-bike' }}
-                  </v-icon>
-                </template>
-                <v-list-item-title>{{ activity.type }}</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ activity.distance }} • {{ activity.time }} • {{ activity.date }}
-                </v-list-item-subtitle>
-              </v-list-item>
-            </v-list>
-          </v-card-text>
+                Manage Racers
+              </v-btn>
+              <p class="text-body-2 text-medium-emphasis mt-2">
+                Create and manage your racer profiles
+              </p>
+            </v-col>
+            
+            <v-col cols="12" md="6" class="text-center mb-4">
+              <v-btn
+                @click="navigateToEvents"
+                color="success"
+                size="x-large"
+                prepend-icon="mdi-calendar-plus"
+                class="action-btn"
+              >
+                Create Events
+              </v-btn>
+              <p class="text-body-2 text-medium-emphasis mt-2">
+                Host events and invite other racers
+              </p>
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
+    </v-row>
 
-      <v-col cols="12" md="6">
-        <v-card>
-          <v-card-title>Quick Actions</v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="6">
-                <v-btn
-                  block
-                  color="primary"
-                  prepend-icon="mdi-plus"
-                  class="mb-2"
-                >
-                  Add Run
-                </v-btn>
-              </v-col>
-              <v-col cols="6">
-                <v-btn
-                  block
-                  color="success"
-                  prepend-icon="mdi-plus"
-                  class="mb-2"
-                >
-                  Add Bike
-                </v-btn>
-              </v-col>
-              <v-col cols="6">
-                <v-btn
-                  block
-                  variant="outlined"
-                  prepend-icon="mdi-chart-line"
-                  class="mb-2"
-                >
-                  View Stats
-                </v-btn>
-              </v-col>
-              <v-col cols="6">
-                <v-btn
-                  block
-                  variant="outlined"
-                  prepend-icon="mdi-calendar"
-                  class="mb-2"
-                >
-                  Schedule
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
+    <!-- Features Grid -->
+    <v-row class="mt-8">
+      <v-col cols="12">
+        <v-card class="features-card">
+          <v-card-title class="text-h4 text-center mb-6">
+            Key Features
+          </v-card-title>
+          
+          <v-row>
+            <v-col cols="12" sm="6" md="3" class="text-center mb-4">
+              <v-icon size="48" color="primary" class="mb-3">mdi-account-multiple</v-icon>
+              <h4 class="text-h6 font-weight-bold mb-2">Racer Management</h4>
+              <p class="text-body-2 text-medium-emphasis">
+                Complete profiles with personal details and contact information
+              </p>
+            </v-col>
+            
+            <v-col cols="12" sm="6" md="3" class="text-center mb-4">
+              <v-icon size="48" color="success" class="mb-3">mdi-calendar-multiple</v-icon>
+              <h4 class="text-h6 font-weight-bold mb-2">Event Creation</h4>
+              <p class="text-body-2 text-medium-emphasis">
+                Create customizable events with flexible configuration options
+              </p>
+            </v-col>
+            
+            <v-col cols="12" sm="6" md="3" class="text-center mb-4">
+              <v-icon size="48" color="info" class="mb-3">mdi-account-group</v-icon>
+              <h4 class="text-h6 font-weight-bold mb-2">Community</h4>
+              <p class="text-body-2 text-medium-emphasis">
+                Connect with other racers and join events in your area
+              </p>
+            </v-col>
+            
+            <v-col cols="12" sm="6" md="3" class="text-center mb-4">
+              <v-icon size="48" color="warning" class="mb-3">mdi-cog</v-icon>
+              <h4 class="text-h6 font-weight-bold mb-2">Customizable</h4>
+              <p class="text-body-2 text-medium-emphasis">
+                Flexible event settings to match your racing preferences
+              </p>
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>
@@ -146,41 +178,86 @@ const authStore = useAuthStore()
 </template>
 
 <style scoped>
-.h-100 {
+.hero-section {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-logo {
+  max-width: 200px;
+  height: auto;
+  object-fit: contain;
+}
+
+.max-width-600 {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.description-card,
+.actions-card,
+.features-card {
+  background: linear-gradient(135deg, #F2E8C6 0%, #DAD4B5 100%);
+  border: 1px solid #DAD4B5;
+  border-radius: 16px;
+}
+
+.feature-section {
+  padding: 1rem;
   height: 100%;
 }
 
-.welcome-section,
-.stats-section,
-.content-section {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
+.feature-icon {
+  display: flex;
+  justify-content: center;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feature-list li {
+  margin-bottom: 0.5rem;
+  color: #800000;
+  font-weight: 500;
+}
+
+.action-btn {
+  min-width: 200px;
+  height: 56px;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 /* Mobile optimizations */
 @media (max-width: 600px) {
-  .v-card-title {
-    font-size: 1.25rem !important;
+  .hero-logo {
+    max-width: 150px;
   }
   
-  .v-card-text {
-    padding: 0.75rem !important;
+  .text-h3 {
+    font-size: 1.75rem !important;
   }
   
-  .v-list-item {
-    padding: 0.5rem 0 !important;
-  }
-}
-
-/* Tablet optimizations */
-@media (min-width: 601px) and (max-width: 960px) {
-  .v-card-title {
+  .text-h4 {
     font-size: 1.5rem !important;
   }
+  
+  .action-btn {
+    min-width: 100%;
+    margin-bottom: 1rem;
+  }
 }
 
-/* Ensure no horizontal scroll */
+/* Ensure proper spacing */
 :deep(.v-row) {
   margin: 0 !important;
 }

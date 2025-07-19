@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import logo from '../assets/logo.png'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -27,7 +28,16 @@ const handleGoogleLogin = async () => {
 <template>
   <div class="login-container">
     <div class="login-content">
-      <h1 class="text-h4 mb-8">Run Bike Manager</h1>
+      <div class="logo-container mb-6">
+        <img :src="logo" alt="Run Bike Manager Logo" class="logo" />
+      </div>
+      
+      <h1 class="text-h4 mb-4">Run Bike Manager</h1>
+      
+      <p class="text-body-1 text-medium-emphasis mb-8 app-description">
+        The ultimate platform for managing your racers and creating exciting events. 
+        Build your racing community and compete with fellow enthusiasts.
+      </p>
       
       <v-alert
         v-if="error"
@@ -76,6 +86,29 @@ const handleGoogleLogin = async () => {
   text-align: center;
   background-color: #ffffff;
   color: #213547;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+}
+
+.app-description {
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.6;
+  color: #666;
 }
 
 /* Override any Vuetify dark theme styles */
